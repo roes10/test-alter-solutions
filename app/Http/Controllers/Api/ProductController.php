@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function index(): JsonResponse
     {
         return response()->json([
-            'data' => $this->productRepository->getAllProducts()
+            'data' => $this->productRepository->all()
         ]);
     }
 
@@ -37,7 +37,7 @@ class ProductController extends Controller
     {
         return response()->json(
             [
-                'data' => $this->productRepository->createProduct($request->all())
+                'data' => $this->productRepository->create($request->all())
             ],
             Response::HTTP_CREATED
         );
@@ -53,7 +53,7 @@ class ProductController extends Controller
     {
 
         return response()->json([
-            'data' => $this->productRepository->getProductById($id)
+            'data' => $this->productRepository->byId($id)
         ]);
     }
 
@@ -61,13 +61,13 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param $id
      * @return JsonResponse
      */
     public function update(Request $request, $id): JsonResponse
     {
         return response()->json([
-            'data' => $this->productRepository->updateProduct($id, $request->all())
+            'data' => $this->productRepository->update($id, $request->all())
         ]);
     }
 
@@ -79,7 +79,7 @@ class ProductController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $this->productRepository->deleteProduct($id);
+        $this->productRepository->delete($id);
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
