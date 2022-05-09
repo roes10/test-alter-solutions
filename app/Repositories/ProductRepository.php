@@ -13,12 +13,12 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function all()
     {
-        return $this->model::paginate(10);
+        return $this->model::with('category')->paginate(10);
     }
 
     public function byId($id)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->with('category')->find($id);
     }
 
     public function delete($id)
@@ -33,7 +33,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function update($id, array $data)
     {
-        return $this->model->where('id', '=', $id)->update($data);
+        return $this->model->whereId($id)->update($data);
     }
 
 }
